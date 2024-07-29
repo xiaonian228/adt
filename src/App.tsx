@@ -1,12 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import ImagesContainer from "./component/pages/ImagesContainer";
+import MainContainer from "./component/pages/MainContainer";
 
-function App() {
+const App = () => {
   return (
-    <ImagesContainer/>
+    <div className="app">
+      <MainContainer/>
+    </div>
   );
-}
+};
 
 export default App;
