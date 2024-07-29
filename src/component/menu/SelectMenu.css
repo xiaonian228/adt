@@ -1,0 +1,27 @@
+.select_menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 24px;
+    opacity: 0.1;
+    z-index: 100;
+    cursor: pointer;
+    user-select: none;
+    &:hover{
+        opacity: 1;
+    }
+    .items{
+        min-height: 32px;
+        .orientation{
+            height: 32px;
+            padding-left: 16px;
+            &:hover{
+                background-color: #00000020;
+            }
+        }
+
+        &:hover{
+            background-color: #00000020;
+        }
+    }
+}

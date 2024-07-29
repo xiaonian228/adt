@@ -27,7 +27,7 @@ import verticalNormal5 from '../../asset/images/safe/vertical/normal5.jpg'
 import verticalNormal6 from '../../asset/images/safe/vertical/normal6.jpg'
 import verticalNormal7 from '../../asset/images/safe/vertical/normal7.jpg'
 
-const SafetyEducation = () => {
+const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 	const imageArray = [
 		horizonFront1, horizonBack1, horizonFront2, horizonBack2, horizonFront3, horizonBack3, horizonFront4, horizonBack4,
 		horizonFront5, horizonBack5, horizonFront6, horizonBack6, horizonFront7, horizonBack7, horizonFront8, horizonBack8,
@@ -37,50 +37,43 @@ const SafetyEducation = () => {
 	]
 
 	const [currentIndex, setCurrentIndex] = useState(0);
-	// transitionDuration 값을 변경하기 위한 상태
-	const [transitionDuration, setTransitionDuration] = useState(2000);
 
-	React.useEffect(() => {
-		if (currentIndex % 2 === 0) {
-			setTransitionDuration(4000); // 짝수 인덱스일 때 4초
-		} else {
-			setTransitionDuration(2000); // 홀수 인덱스일 때 2초
-		}
-	}, [currentIndex]);
-	const [menuOpen, setMenuOpen] = useState(false);
+	const getDuration = (index: number) => {
+		return index % 2 === 0 ? 4000 : 2000; // 짝수 4초, 홀수 2초
+	};
 
 	return (
 		<div style={{position:'relative'}}>
-			<Fade duration={0} transitionDuration={transitionDuration} pauseOnHover={false} easing={'ease-out'}
-			      onChange={(i)=> {
-				      setCurrentIndex(i);
-			      }}
-			      autoplay={true} arrows={false}>
-				{imageArray.map((img, i) => (
-					<div key={i}>
-						<div onClick={()=>setMenuOpen(!menuOpen)}
-							// onClick={()=>setFullScreen(!fullscreen)}
-							   style={{
-								   backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
-								   backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-							   }}/>
-					</div>
-				))}
-			</Fade>
-			<Slide duration={3500} transitionDuration={500} pauseOnHover={false} easing={'ease-out'}
-			       onChange={setCurrentIndex} vertical={true}
-			       autoplay={true} arrows={false}>
-				{verticalImageArray.map((img, i)=>(
-					<div key={i}>
-						<div onClick={()=>setMenuOpen(!menuOpen)}
-							// onClick={()=>setFullScreen(!fullscreen)}
-							style={{
-								backgroundImage:`url('${img}')`, width:'100%', height:'100vh', cursor:'pointer',
-								backgroundSize:'contain', backgroundRepeat:'no-repeat', backgroundPosition:'center',
+			{!vertical?
+				<Fade duration={getDuration(currentIndex)} transitionDuration={1000} pauseOnHover={false}
+					  easing={'ease-out'}
+					  onChange={(i) => {
+						  setCurrentIndex(i);
+					  }}
+					  autoplay={true} arrows={false} canSwipe={false}>
+					{imageArray.map((img, i) => (
+						<div key={i}>
+							<div style={{
+								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
 							}}/>
-					</div>
-				))}
-			</Slide>
+						</div>
+					))}
+				</Fade>
+				:
+				<Slide duration={3000} transitionDuration={500} pauseOnHover={false} easing={'ease-out'}
+					   onChange={setCurrentIndex}
+					   autoplay={true} arrows={false} canSwipe={false}>
+					{verticalImageArray.map((img, i) => (
+						<div key={i}>
+							<div style={{
+								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+							}}/>
+						</div>
+					))}
+				</Slide>
+			}
 		</div>
 	);
 };
