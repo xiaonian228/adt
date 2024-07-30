@@ -1,5 +1,5 @@
-import React from 'react';
-import {Zoom} from "react-slideshow-image";
+import React, {useEffect, useState} from 'react';
+import {Fade, Zoom} from "react-slideshow-image";
 import 'react-slideshow-image/dist/styles.css'
 
 import horizonNormal1 from '../../asset/images/workers/horizon/normal1.jpg'
@@ -63,10 +63,15 @@ import verticalNormal27 from '../../asset/images/workers/vertical/normal27.png'
 import verticalNormal28 from '../../asset/images/workers/vertical/normal28.png'
 import verticalNormal29 from '../../asset/images/workers/vertical/normal29.png'
 import verticalNormal30 from '../../asset/images/workers/vertical/normal30.png'
+import {useNavigate} from "react-router-dom";
 
 
 const ForeignWorkers = ({vertical}: {vertical?: boolean})  => {
+	const [currentIndex, setCurrentIndex] = useState(0);
 
+	const handleChange = (previous: number, next: number) => {
+		setCurrentIndex(next);
+	}
 	const imageArray = [
 		horizonNormal1, horizonNormal2, horizonNormal3, horizonNormal4, horizonNormal5,
 		horizonNormal6, horizonNormal7, horizonNormal8, horizonNormal9, horizonNormal10,
@@ -83,37 +88,67 @@ const ForeignWorkers = ({vertical}: {vertical?: boolean})  => {
 		verticalNormal21, verticalNormal22, verticalNormal23, verticalNormal24, verticalNormal25,
 		verticalNormal26, verticalNormal27, verticalNormal28, verticalNormal29, verticalNormal30,
 	]
+	const navigate = useNavigate()
+
+	useEffect(()=>{
+		if(vertical){
+			if(verticalImageArray.length -1 === currentIndex){
+				setTimeout(()=>{
+					navigate('/main',{})
+				},5000)
+			}
+		}
+		else{
+			if(imageArray.length -1 === currentIndex){
+				setTimeout(()=>{
+					navigate('/main',{})
+				},5000)
+			}
+		}
+	},[currentIndex])
 
 	return (
 		<div>
 			{!vertical?
-				<Zoom
-					duration={1500} transitionDuration={500} pauseOnHover={false} scale={0.9}
-					defaultIndex={0}
-					autoplay={true} arrows={false} canSwipe={false}>
-					{imageArray.map((img, i) => (
-						<div key={i}>
-							<div style={{
-								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
-								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-							}}/>
-						</div>
-					))}
-				</Zoom>
+				<div style={{
+					backgroundImage: `url('${imageArray[currentIndex]}')`,
+					width: '100%', height: '100vh', cursor: 'pointer',
+					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+				}}>
+					<Fade
+						duration={1500} transitionDuration={500} pauseOnHover={false}
+						defaultIndex={0} onChange={handleChange} infinite={false}
+						autoplay={true} arrows={false} canSwipe={false}>
+						{imageArray.map((img, i) => (
+							<div key={i}>
+								<div style={{
+									backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+									backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								}}/>
+							</div>
+						))}
+					</Fade>
+				</div>
 				:
-				<Zoom
-					duration={1000} transitionDuration={1000} pauseOnHover={false} scale={1}
-					defaultIndex={0}
-					autoplay={true} arrows={false} canSwipe={false}>
-					{verticalImageArray.map((img, i) => (
-						<div key={i}>
-							<div style={{
-								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
-								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-							}}/>
-						</div>
-					))}
-				</Zoom>
+				<div style={{
+					backgroundImage: `url('${verticalImageArray[currentIndex]}')`,
+					width: '100%', height: '100vh', cursor: 'pointer',
+					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+				}}>
+					<Zoom
+						duration={1000} transitionDuration={1000} pauseOnHover={false} scale={1}
+						defaultIndex={0} infinite={false} onChange={handleChange}
+						autoplay={true} arrows={false} canSwipe={false}>
+						{verticalImageArray.map((img, i) => (
+							<div key={i}>
+								<div style={{
+									backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+									backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								}}/>
+							</div>
+						))}
+					</Zoom>
+				</div>
 			}
 		</div>
 	);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Zoom} from "react-slideshow-image";
 import 'react-slideshow-image/dist/styles.css'
 
@@ -20,6 +20,7 @@ import horizonNormal14 from '../../asset/images/heat/horizon/normal14.jpg'
 import verticalNormal1 from '../../asset/images/heat/vertical/normal1.png'
 import verticalNormal2 from '../../asset/images/heat/vertical/normal2.png'
 import verticalNormal3 from '../../asset/images/heat/vertical/normal3.png'
+import {useNavigate} from "react-router-dom";
 
 const HeatIllness = ({vertical}: {vertical?: boolean})  => {
 
@@ -32,36 +33,74 @@ const HeatIllness = ({vertical}: {vertical?: boolean})  => {
 		verticalNormal1, verticalNormal2, verticalNormal3,
 	]
 
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const handleChange = (previous: number, next: number) => {
+		setCurrentIndex(next);
+	};
+
+	const navigate = useNavigate()
+
+	useEffect(()=>{
+		if(vertical){
+			if(verticalImageArray.length -1 === currentIndex){
+				setTimeout(()=>{
+					navigate('/main',{})
+				},5000)
+			}
+		}
+		else{
+			if(imageArray.length -1 === currentIndex){
+				setTimeout(()=>{
+					navigate('/main',{})
+				},5000)
+			}
+		}
+	},[currentIndex])
+
+
 	return (
 		<div style={{position: 'relative'}}>
 			{!vertical?
-				<Zoom
-					duration={3000} transitionDuration={1000} pauseOnHover={false} scale={1}
-					defaultIndex={0}
-					autoplay={true} arrows={false} canSwipe={false}>
-					{imageArray.map((img, i) => (
-						<div key={i}>
-							<div style={{
-								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
-								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-							}}/>
-						</div>
-					))}
-				</Zoom>
+				<div style={{
+					backgroundImage: `url('${imageArray[currentIndex]}')`,
+					width: '100%', height: '100vh', cursor: 'pointer',
+					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+				}}>
+					<Zoom
+						duration={3000} transitionDuration={1000} pauseOnHover={false} scale={1}
+						defaultIndex={0} onChange={handleChange} infinite={false}
+						autoplay={true} arrows={false} canSwipe={false}>
+						{imageArray.map((img, i) => (
+							<div key={i}>
+								<div style={{
+									backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+									backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								}}/>
+							</div>
+						))}
+					</Zoom>
+				</div>
 				:
-				<Zoom
-					duration={3000} transitionDuration={1000} pauseOnHover={false} scale={1}
-					defaultIndex={0}
-					autoplay={true} arrows={false} canSwipe={false}>
-					{verticalImageArray.map((img, i) => (
-						<div key={i}>
-							<div style={{
-								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
-								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-							}}/>
-						</div>
-					))}
-				</Zoom>
+				<div style={{
+					backgroundImage: `url('${verticalImageArray[currentIndex]}')`,
+					width: '100%', height: '100vh', cursor: 'pointer',
+					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+				}}>
+					<Zoom
+						duration={3000} transitionDuration={1000} pauseOnHover={false} scale={1}
+						defaultIndex={0} onChange={handleChange} infinite={false}
+						autoplay={true} arrows={false} canSwipe={false}>
+						{verticalImageArray.map((img, i) => (
+							<div key={i}>
+								<div style={{
+									backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+									backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								}}/>
+							</div>
+						))}
+					</Zoom>
+				</div>
 			}
 
 		</div>

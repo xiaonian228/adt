@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Fade, Slide} from "react-slideshow-image";
 import 'react-slideshow-image/dist/styles.css'
 
@@ -26,6 +26,7 @@ import verticalNormal4 from '../../asset/images/safe/vertical/normal4.jpg'
 import verticalNormal5 from '../../asset/images/safe/vertical/normal5.jpg'
 import verticalNormal6 from '../../asset/images/safe/vertical/normal6.jpg'
 import verticalNormal7 from '../../asset/images/safe/vertical/normal7.jpg'
+import {useNavigate} from "react-router-dom";
 
 const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 	const imageArray = [
@@ -42,14 +43,36 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 		return index % 2 === 0 ? 4000 : 2000; // 짝수 4초, 홀수 2초
 	};
 
+
+	const navigate = useNavigate()
+
+	useEffect(()=>{
+		if(vertical){
+			if(verticalImageArray.length -1 === currentIndex){
+				setTimeout(()=>{
+					navigate('/main',{})
+				},5000)
+			}
+		}
+		else{
+			if(imageArray.length -1 === currentIndex){
+				setTimeout(()=>{
+					navigate('/main',{})
+				},5000)
+			}
+		}
+	},[currentIndex])
+
+	const handleChange = (previous: number, next: number) => {
+		setCurrentIndex(next);
+	};
+
 	return (
 		<div style={{position:'relative'}}>
 			{!vertical?
 				<Fade duration={getDuration(currentIndex)} transitionDuration={1000} pauseOnHover={false}
-					  easing={'ease-out'}
-					  onChange={(i) => {
-						  setCurrentIndex(i);
-					  }}
+					  easing={'ease-out'} infinite={false}
+					  onChange={handleChange}
 					  autoplay={true} arrows={false} canSwipe={false}>
 					{imageArray.map((img, i) => (
 						<div key={i}>
@@ -62,8 +85,10 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 				</Fade>
 				:
 				<Slide duration={3000} transitionDuration={500} pauseOnHover={false} easing={'ease-out'}
-					   onChange={setCurrentIndex}
-					   autoplay={true} arrows={false} canSwipe={false}>
+					   onChange={handleChange} infinite={false} slidesToShow={3}
+					   autoplay={currentIndex <= 5} arrows={false} canSwipe={false}>
+					<div style={{width: '100%', height: '100vh', cursor: 'pointer',}}></div>
+					<div style={{width: '100%', height: '100vh', cursor: 'pointer',}}></div>
 					{verticalImageArray.map((img, i) => (
 						<div key={i}>
 							<div style={{

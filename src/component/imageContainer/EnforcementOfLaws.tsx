@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Fade, Slide} from "react-slideshow-image";
 import 'react-slideshow-image/dist/styles.css'
 
@@ -12,6 +12,7 @@ import verticalNormal1 from '../../asset/images/laws/vertical/normal1.jpg'
 import verticalNormal2 from '../../asset/images/laws/vertical/normal2.jpg'
 import verticalNormal3 from '../../asset/images/laws/vertical/normal3.jpg'
 import verticalNormal4 from '../../asset/images/laws/vertical/normal4.jpg'
+import {useNavigate} from "react-router-dom";
 const EnforcementOfLaws = ({vertical}: {vertical?: boolean})  => {
 
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -23,19 +24,34 @@ const EnforcementOfLaws = ({vertical}: {vertical?: boolean})  => {
 		verticalNormal1, verticalNormal2, verticalNormal3, verticalNormal4
 	]
 
+	const navigate = useNavigate()
+
+	useEffect(()=>{
+		if(vertical){
+			if(verticalImageArray.length -1 === currentIndex){
+				setTimeout(()=>{
+					navigate('/main',{})
+				},5000)
+			}
+		}
+		else{
+			if(imageArray.length -1 === currentIndex){
+				setTimeout(()=>{
+					navigate('/main',{})
+				},5000)
+			}
+		}
+	},[currentIndex])
+
 	const handleChange = (previous: number, next: number) => {
 		setCurrentIndex(next);
-		// 첫 번째 슬라이드 이후에는 interval을 4초로 변경
-		// if (next === 1 && duration !== 4000) {
-		// 	setDuration(4000); // 이후 모든 슬라이드는 4초
-		// }
 	};
 
 	return (
 		<div style={{position: 'relative'}}>
 			{!vertical?
 				<Fade duration={currentIndex === 0 ? 2000 : 4000} transitionDuration={1000} pauseOnHover={false}
-					  onChange={handleChange} canSwipe={false}
+					  onChange={handleChange} canSwipe={false} infinite={false}
 					  autoplay={true} arrows={false}>
 					{imageArray.map((img, i) => (
 						<div key={i}>
@@ -47,9 +63,11 @@ const EnforcementOfLaws = ({vertical}: {vertical?: boolean})  => {
 					))}
 				</Fade>
 				:
-				<Slide duration={4000} transitionDuration={500} pauseOnHover={false} easing={'ease-out'}
-					   onChange={setCurrentIndex} canSwipe={false}
-					   autoplay={true} arrows={false}>
+				<Slide duration={4000} transitionDuration={1000} pauseOnHover={false} defaultIndex={0}
+					   onChange={handleChange} canSwipe={false} infinite={false} slidesToShow={3}
+					   autoplay={currentIndex <= 2} arrows={false}>
+					<div style={{width: '100%', height: '100vh', cursor: 'pointer',}}></div>
+					<div style={{width: '100%', height: '100vh', cursor: 'pointer',}}></div>
 					{verticalImageArray.map((img, i) => (
 						<div key={i}>
 							<div style={{
