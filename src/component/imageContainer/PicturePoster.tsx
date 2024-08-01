@@ -13,8 +13,6 @@ import horizonNormal8 from '../../asset/images/poster/horizon/normal8.jpg'
 import {useNavigate} from "react-router-dom";
 
 
-
-
 const PicturePoster = ({vertical}: {vertical?: boolean}) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -37,6 +35,9 @@ const PicturePoster = ({vertical}: {vertical?: boolean}) => {
 		}
 	},[currentIndex])
 
+	// 세로형은 3개 보여주고 슬라이드 형태
+	// 세로형 - 1, 2, 3 은
+	// ex => 1 -3초 2 - 3초 3- 3초 보여준 뒤 슬라이드 진행.
 	return (
 		<div>
 			<div style={{

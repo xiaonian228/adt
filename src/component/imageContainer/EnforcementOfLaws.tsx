@@ -28,7 +28,7 @@ const EnforcementOfLaws = ({vertical}: {vertical?: boolean})  => {
 
 	useEffect(()=>{
 		if(vertical){
-			if(verticalImageArray.length -1 === currentIndex){
+			if(verticalImageArray.length -3 === currentIndex){
 				setTimeout(()=>{
 					navigate('/main',{})
 				},5000)
@@ -50,24 +50,27 @@ const EnforcementOfLaws = ({vertical}: {vertical?: boolean})  => {
 	return (
 		<div style={{position: 'relative'}}>
 			{!vertical?
-				<Fade duration={currentIndex === 0 ? 2000 : 4000} transitionDuration={1000} pauseOnHover={false}
-					  onChange={handleChange} canSwipe={false} infinite={false}
-					  autoplay={true} arrows={false}>
-					{imageArray.map((img, i) => (
-						<div key={i}>
-							<div style={{
-								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
-								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-							}}/>
-						</div>
-					))}
-				</Fade>
+				<div style={{
+					backgroundImage: `url('${imageArray[currentIndex]}')`, width: '100%', height: '100vh', cursor: 'pointer',
+					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+				}}>
+					<Fade duration={currentIndex === 0 ? 2000 : 4000} transitionDuration={1000} pauseOnHover={false}
+						  onChange={handleChange} canSwipe={false} infinite={false}
+						  autoplay={true} arrows={false}>
+						{imageArray.map((img, i) => (
+							<div key={i}>
+								<div style={{
+									backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+									backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								}}/>
+							</div>
+						))}
+					</Fade>
+				</div>
 				:
 				<Slide duration={4000} transitionDuration={1000} pauseOnHover={false} defaultIndex={0}
 					   onChange={handleChange} canSwipe={false} infinite={false} slidesToShow={3}
-					   autoplay={currentIndex <= 2} arrows={false}>
-					<div style={{width: '100%', height: '100vh', cursor: 'pointer',}}></div>
-					<div style={{width: '100%', height: '100vh', cursor: 'pointer',}}></div>
+					   autoplay={currentIndex <= 0} arrows={false}>
 					{verticalImageArray.map((img, i) => (
 						<div key={i}>
 							<div style={{

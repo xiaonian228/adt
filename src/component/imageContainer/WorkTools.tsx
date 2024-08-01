@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Fade} from "react-slideshow-image";
+import {Fade, Slide} from "react-slideshow-image";
 import 'react-slideshow-image/dist/styles.css'
 
 import horizonNormal1 from '../../asset/images/worktools/horizon/normal1.jpg'
@@ -66,7 +66,7 @@ const WorkTools = ({vertical}: {vertical?: boolean})  => {
 
 	useEffect(()=>{
 		if(vertical){
-			if(verticalImageArray.length -1 === currentIndex){
+			if(verticalImageArray.length -3 === currentIndex){
 				setTimeout(()=>{
 					navigate('/main',{})
 				},5000)
@@ -103,24 +103,38 @@ const WorkTools = ({vertical}: {vertical?: boolean})  => {
 					</Fade>
 				</div>
 				:
-				<div style={{
-					backgroundImage: `url('${verticalImageArray[currentIndex]}')`, width: '100%', height: '100vh', cursor: 'pointer',
-					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-				}}>
-					<Fade
-						duration={4000} pauseOnHover={false} infinite={false}
-						defaultIndex={0} onChange={handleChange}
-						autoplay={true} arrows={false} canSwipe={false}>
-						{verticalImageArray.map((img, i) => (
-							<div key={i}>
-								<div style={{
-									backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
-									backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-								}}/>
-							</div>
-						))}
-					</Fade>
-				</div>
+
+				<Slide duration={3000} transitionDuration={500} pauseOnHover={false} easing={'ease-out'}
+				       onChange={handleChange} infinite={false} slidesToShow={3}
+				       autoplay={currentIndex <= 16} arrows={false} canSwipe={false}>
+					{verticalImageArray.map((img, i) => (
+						<div key={i}>
+							<div style={{
+								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+							}}/>
+						</div>
+					))}
+				</Slide>
+
+				// <div style={{
+				// 	backgroundImage: `url('${verticalImageArray[currentIndex]}')`, width: '100%', height: '100vh', cursor: 'pointer',
+				// 	backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+				// }}>
+				// 	<Fade
+				// 		duration={4000} pauseOnHover={false} infinite={false}
+				// 		defaultIndex={0} onChange={handleChange}
+				// 		autoplay={true} arrows={false} canSwipe={false}>
+				// 		{verticalImageArray.map((img, i) => (
+				// 			<div key={i}>
+				// 				<div style={{
+				// 					backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+				// 					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+				// 				}}/>
+				// 			</div>
+				// 		))}
+				// 	</Fade>
+				// </div>
 			}
 		</div>
 	);

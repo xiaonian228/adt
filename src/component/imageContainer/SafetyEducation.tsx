@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Fade, Slide} from "react-slideshow-image";
 import 'react-slideshow-image/dist/styles.css'
+import {useNavigate} from "react-router-dom";
 
 import horizonFront1 from '../../asset/images/safe/horizon/front1.png'
 import horizonFront2 from '../../asset/images/safe/horizon/front2.png'
@@ -26,7 +27,7 @@ import verticalNormal4 from '../../asset/images/safe/vertical/normal4.jpg'
 import verticalNormal5 from '../../asset/images/safe/vertical/normal5.jpg'
 import verticalNormal6 from '../../asset/images/safe/vertical/normal6.jpg'
 import verticalNormal7 from '../../asset/images/safe/vertical/normal7.jpg'
-import {useNavigate} from "react-router-dom";
+import verticalNormal8 from '../../asset/images/safe/vertical/normal8.jpg'
 
 const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 	const imageArray = [
@@ -34,7 +35,7 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 		horizonFront5, horizonBack5, horizonFront6, horizonBack6, horizonFront7, horizonBack7, horizonFront8, horizonBack8,
 	]
 	const verticalImageArray = [
-		verticalNormal1, verticalNormal2, verticalNormal3, verticalNormal4, verticalNormal5, verticalNormal6, verticalNormal7,
+		verticalNormal1, verticalNormal2, verticalNormal3, verticalNormal4, verticalNormal5, verticalNormal6, verticalNormal7, verticalNormal8
 	]
 
 	const [currentIndex, setCurrentIndex] = useState(0);
@@ -48,7 +49,7 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 
 	useEffect(()=>{
 		if(vertical){
-			if(verticalImageArray.length -1 === currentIndex){
+			if(verticalImageArray.length -3 === currentIndex){
 				setTimeout(()=>{
 					navigate('/main',{})
 				},5000)
@@ -70,25 +71,29 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 	return (
 		<div style={{position:'relative'}}>
 			{!vertical?
-				<Fade duration={getDuration(currentIndex)} transitionDuration={1000} pauseOnHover={false}
-					  easing={'ease-out'} infinite={false}
-					  onChange={handleChange}
-					  autoplay={true} arrows={false} canSwipe={false}>
-					{imageArray.map((img, i) => (
-						<div key={i}>
-							<div style={{
-								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
-								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
-							}}/>
-						</div>
-					))}
-				</Fade>
+				<div style={{
+					backgroundImage: `url('${imageArray[currentIndex]}')`, width: '100%', height: '100vh', cursor: 'pointer',
+					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+				}}>
+					<Fade duration={getDuration(currentIndex)} transitionDuration={1000} pauseOnHover={false}
+						  easing={'ease-out'} infinite={false}
+						  onChange={handleChange}
+						  autoplay={true} arrows={false} canSwipe={false}>
+						{imageArray.map((img, i) => (
+							<div key={i}>
+								<div style={{
+									backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
+									backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								}}/>
+							</div>
+						))}
+					</Fade>
+				</div>
+
 				:
 				<Slide duration={3000} transitionDuration={500} pauseOnHover={false} easing={'ease-out'}
 					   onChange={handleChange} infinite={false} slidesToShow={3}
-					   autoplay={currentIndex <= 5} arrows={false} canSwipe={false}>
-					<div style={{width: '100%', height: '100vh', cursor: 'pointer',}}></div>
-					<div style={{width: '100%', height: '100vh', cursor: 'pointer',}}></div>
+					   autoplay={currentIndex <= 4} arrows={false} canSwipe={false}>
 					{verticalImageArray.map((img, i) => (
 						<div key={i}>
 							<div style={{
