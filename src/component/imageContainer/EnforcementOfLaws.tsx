@@ -31,21 +31,44 @@ const EnforcementOfLaws = ({vertical}: {vertical?: boolean})  => {
 			if(verticalImageArray.length -3 === currentIndex){
 				setTimeout(()=>{
 					navigate('/main',{})
-				},5000)
+				},8500)
 			}
 		}
 		else{
 			if(imageArray.length -1 === currentIndex){
 				setTimeout(()=>{
 					navigate('/main',{})
-				},5000)
+				},6000)
 			}
 		}
 	},[currentIndex])
 
+	const [opacityTiming, setOpacityTiming] = React.useState<number>(-1)
+	React.useEffect(()=>{
+		setTimeout(()=>{
+			setOpacityTiming(0)
+			setTimeout(()=>{
+				setOpacityTiming(1)
+				setTimeout(()=>{
+					setOpacityTiming(2)
+					setTimeout(()=>{
+						setOpacityTiming(verticalImageArray.length)
+					},2000)
+				},2000)
+			},2000)
+		},2000)
+	},[])
+
 	const handleChange = (previous: number, next: number) => {
 		setCurrentIndex(next);
 	};
+
+	if(!vertical){
+		window.localStorage.setItem('thumbIndex','2')
+	}
+	else{
+		window.localStorage.setItem('thumbIndex','0')
+	}
 
 	return (
 		<div style={{position: 'relative'}}>
@@ -54,7 +77,7 @@ const EnforcementOfLaws = ({vertical}: {vertical?: boolean})  => {
 					backgroundImage: `url('${imageArray[currentIndex]}')`, width: '100%', height: '100vh', cursor: 'pointer',
 					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
 				}}>
-					<Fade duration={currentIndex === 0 ? 2000 : 4000} transitionDuration={1000} pauseOnHover={false}
+					<Fade duration={currentIndex === 0 ? 2000 : 6000} transitionDuration={1000} pauseOnHover={false}
 						  onChange={handleChange} canSwipe={false} infinite={false}
 						  autoplay={true} arrows={false}>
 						{imageArray.map((img, i) => (
@@ -68,14 +91,16 @@ const EnforcementOfLaws = ({vertical}: {vertical?: boolean})  => {
 					</Fade>
 				</div>
 				:
-				<Slide duration={4000} transitionDuration={1000} pauseOnHover={false} defaultIndex={0}
-					   onChange={handleChange} canSwipe={false} infinite={false} slidesToShow={3}
+				<Slide duration={8500} transitionDuration={1000} pauseOnHover={false} defaultIndex={0}
+					   onChange={handleChange} canSwipe={false} infinite={false} slidesToShow={3} easing={'ease-out'}
 					   autoplay={currentIndex <= 0} arrows={false}>
 					{verticalImageArray.map((img, i) => (
 						<div key={i}>
 							<div style={{
 								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
 								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								transition:'opacity 0.5s',
+								opacity: i <= opacityTiming? 1 : 0
 							}}/>
 						</div>
 					))}

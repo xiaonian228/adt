@@ -41,7 +41,7 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const getDuration = (index: number) => {
-		return index % 2 === 0 ? 4000 : 2000; // 짝수 4초, 홀수 2초
+		return index % 2 === 0 ? 2000 : 4000; // 짝수 4초, 홀수 2초
 	};
 
 
@@ -52,7 +52,7 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 			if(verticalImageArray.length -3 === currentIndex){
 				setTimeout(()=>{
 					navigate('/main',{})
-				},5000)
+				},6000)
 			}
 		}
 		else{
@@ -64,9 +64,31 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 		}
 	},[currentIndex])
 
+	const [opacityTiming, setOpacityTiming] = React.useState<number>(-1)
+	React.useEffect(()=>{
+		setTimeout(()=>{
+			setOpacityTiming(0)
+			setTimeout(()=>{
+				setOpacityTiming(1)
+				setTimeout(()=>{
+					setOpacityTiming(2)
+					setTimeout(()=>{
+						setOpacityTiming(verticalImageArray.length)
+					},2000)
+				},2000)
+			},2000)
+		},2000)
+	},[])
+
 	const handleChange = (previous: number, next: number) => {
 		setCurrentIndex(next);
 	};
+	if(!vertical){
+		window.localStorage.setItem('thumbIndex','1')
+	}
+	else{
+		window.localStorage.setItem('thumbIndex','3')
+	}
 
 	return (
 		<div style={{position:'relative'}}>
@@ -75,7 +97,7 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 					backgroundImage: `url('${imageArray[currentIndex]}')`, width: '100%', height: '100vh', cursor: 'pointer',
 					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
 				}}>
-					<Fade duration={getDuration(currentIndex)} transitionDuration={1000} pauseOnHover={false}
+					<Fade duration={currentIndex === 0? 2000 : currentIndex === 1? 2000 : getDuration(currentIndex)} transitionDuration={1000} pauseOnHover={false}
 						  easing={'ease-out'} infinite={false}
 						  onChange={handleChange}
 						  autoplay={true} arrows={false} canSwipe={false}>
@@ -89,9 +111,8 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 						))}
 					</Fade>
 				</div>
-
 				:
-				<Slide duration={3000} transitionDuration={500} pauseOnHover={false} easing={'ease-out'}
+				<Slide duration={currentIndex === 0 ? 3000 : 6000} transitionDuration={500} pauseOnHover={false} easing={'ease-out'}
 					   onChange={handleChange} infinite={false} slidesToShow={3}
 					   autoplay={currentIndex <= 4} arrows={false} canSwipe={false}>
 					{verticalImageArray.map((img, i) => (
@@ -99,6 +120,8 @@ const SafetyEducation = ({vertical}: {vertical?: boolean})  => {
 							<div style={{
 								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
 								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								transition:'opacity 0.5s',
+								opacity: i <= opacityTiming? 1 : 0
 							}}/>
 						</div>
 					))}

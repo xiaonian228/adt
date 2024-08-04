@@ -80,6 +80,30 @@ const WorkTools = ({vertical}: {vertical?: boolean})  => {
 			}
 		}
 	},[currentIndex])
+
+	const [opacityTiming, setOpacityTiming] = React.useState<number>(-1)
+	React.useEffect(()=>{
+		setTimeout(()=>{
+			setOpacityTiming(0)
+			setTimeout(()=>{
+				setOpacityTiming(1)
+				setTimeout(()=>{
+					setOpacityTiming(2)
+					setTimeout(()=>{
+						setOpacityTiming(verticalImageArray.length)
+					},1000)
+				},1000)
+			},1000)
+		},1000)
+	},[])
+
+	if(!vertical){
+		window.localStorage.setItem('thumbIndex','1')
+	}
+	else{
+		window.localStorage.setItem('thumbIndex','3')
+	}
+
 	return (
 		<div>
 			{!vertical?
@@ -112,6 +136,8 @@ const WorkTools = ({vertical}: {vertical?: boolean})  => {
 							<div style={{
 								backgroundImage: `url('${img}')`, width: '100%', height: '100vh', cursor: 'pointer',
 								backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
+								transition:'opacity 0.5s',
+								opacity: i <= opacityTiming? 1 : 0
 							}}/>
 						</div>
 					))}

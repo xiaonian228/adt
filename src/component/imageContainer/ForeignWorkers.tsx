@@ -107,6 +107,13 @@ const ForeignWorkers = ({vertical}: {vertical?: boolean})  => {
 		}
 	},[currentIndex])
 
+	if(!vertical){
+		window.localStorage.setItem('thumbIndex','1')
+	}
+	else{
+		window.localStorage.setItem('thumbIndex','3')
+	}
+
 	return (
 		<div>
 			{!vertical?

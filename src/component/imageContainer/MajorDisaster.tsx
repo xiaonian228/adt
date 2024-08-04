@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Zoom} from "react-slideshow-image";
+import {Fade} from "react-slideshow-image";
 import 'react-slideshow-image/dist/styles.css'
 
 import horizonNormal1 from '../../asset/images/disaster/horizon/normal1.jpg'
@@ -41,7 +41,7 @@ const MajorDisaster = ({vertical}: {vertical?: boolean}) => {
 			if(verticalImageArray.length -1 === currentIndex){
 				setTimeout(()=>{
 					navigate('/main',{})
-				},5000)
+				},12000)
 			}
 		}
 		else{
@@ -53,6 +53,12 @@ const MajorDisaster = ({vertical}: {vertical?: boolean}) => {
 		}
 	},[currentIndex])
 
+	if(!vertical){
+		window.localStorage.setItem('thumbIndex','1')
+	}
+	else{
+		window.localStorage.setItem('thumbIndex','3')
+	}
 
 	return (
 		<div style={{position: 'relative'}}>
@@ -61,7 +67,7 @@ const MajorDisaster = ({vertical}: {vertical?: boolean}) => {
 					backgroundImage: `url('${imageArray[currentIndex]}')`, width: '100%', height: '100vh', cursor: 'pointer',
 					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
 				}}>
-					<Zoom duration={3500} transitionDuration={500} pauseOnHover={false} scale={1}
+					<Fade duration={(currentIndex === 4 || currentIndex === 5) ? 12000 : 5000} transitionDuration={500} pauseOnHover={false}
 					      onChange={handleChange} infinite={false}
 						  autoplay={true} arrows={false} canSwipe={false}>
 						{imageArray.map((img, i) => (
@@ -72,7 +78,7 @@ const MajorDisaster = ({vertical}: {vertical?: boolean}) => {
 								}}/>
 							</div>
 						))}
-					</Zoom>
+					</Fade>
 				</div>
 
 				:
@@ -80,7 +86,7 @@ const MajorDisaster = ({vertical}: {vertical?: boolean}) => {
 					backgroundImage: `url('${verticalImageArray[currentIndex]}')`, width: '100%', height: '100vh', cursor: 'pointer',
 					backgroundSize: 'contain', backgroundRepeat: 'no-repeat', backgroundPosition: 'center',
 				}}>
-					<Zoom duration={(currentIndex === 0 || currentIndex === 3 || currentIndex === 5 || currentIndex === 7)? 2000 : 4000} transitionDuration={500} pauseOnHover={false} scale={1}
+					<Fade duration={(currentIndex === 0 || currentIndex === 3 || currentIndex === 5 || currentIndex === 7)? 2000 : 12000} transitionDuration={500} pauseOnHover={false}
 						  onStartChange={handleChange} defaultIndex={0} infinite={false}
 						  autoplay={true} arrows={false} canSwipe={false}>
 						{verticalImageArray.map((img, i)=>(
@@ -91,7 +97,7 @@ const MajorDisaster = ({vertical}: {vertical?: boolean}) => {
 								}}/>
 							</div>
 						))}
-					</Zoom>
+					</Fade>
 				</div>
 			}
 		</div>

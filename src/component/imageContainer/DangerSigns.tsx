@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Fade} from "react-slideshow-image";
 import 'react-slideshow-image/dist/styles.css'
-// import './DangerSigns.css'
+
 import horizonFront1 from '../../asset/images/signs/horizon/front1.png'
 import horizonBack1 from '../../asset/images/signs/horizon/back1.png'
 import horizonFront2 from '../../asset/images/signs/horizon/front2.png'
@@ -62,6 +62,13 @@ const DangerSigns = ({vertical}: {vertical?: boolean})  => {
 		}
 
 	},[currentIndex])
+
+	if(!vertical){
+		window.localStorage.setItem('thumbIndex','2')
+	}
+	else{
+		window.localStorage.setItem('thumbIndex','0')
+	}
 
 	const [changePage, setChangePage] = useState(false)
 	const [timingPoster, setTimingPoster] = useState({center: false, left: false, right: false})
@@ -140,9 +147,8 @@ const DangerSigns = ({vertical}: {vertical?: boolean})  => {
 							</div>
 							:
 						<Fade
-							duration={currentIndex === 12 ? 6000 : currentIndex > 12 ? 3000 : 1000} transitionDuration={500}
+							duration={currentIndex === 12 ? 6000 : currentIndex > 12 ? 3000 : 500} transitionDuration={1000}
 							pauseOnHover={false}
-							defaultIndex={0}
 							onChange={handleChange}
 							autoplay={true} arrows={false} infinite={false}
 							canSwipe={false}>

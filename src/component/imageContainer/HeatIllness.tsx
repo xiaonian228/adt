@@ -58,6 +58,12 @@ const HeatIllness = ({vertical}: {vertical?: boolean})  => {
 		}
 	},[currentIndex])
 
+	if(!vertical){
+		window.localStorage.setItem('thumbIndex','2')
+	}
+	else{
+		window.localStorage.setItem('thumbIndex','0')
+	}
 
 	return (
 		<div style={{position: 'relative'}}>
