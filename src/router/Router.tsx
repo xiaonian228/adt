@@ -10,6 +10,7 @@ import HeatIllness from "../component/imageContainer/HeatIllness";
 import DangerSigns from "../component/imageContainer/DangerSigns";
 import ForeignWorkers from "../component/imageContainer/ForeignWorkers";
 import WorkTools from "../component/imageContainer/WorkTools";
+import MainLayOut from "../component/layout/MainLayOut";
 
 const Router = () => {
 	const location = useLocation()
@@ -31,7 +32,7 @@ const Router = () => {
 	return (
 		<PageTransition transitionKey={location.pathname}>
 			<Routes location={location}>
-				<Route element={<APILayout/>} path={'/main'}/>
+				<Route element={<MainLayOut/>} path={'/main'}/>
 				<Route element={<Navigate replace to={'/main'}/>} path={'/'}/>
 				<Route element={<Navigate replace to={'/main'}/>} path={'/*'}/>
 
