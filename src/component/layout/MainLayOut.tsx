@@ -1,13 +1,15 @@
-import React, {CSSProperties} from 'react';
+import React, {CSSProperties, useState} from 'react';
 import logo from '../../asset/images/sample/zestech_logo.svg'
 import samplePreview from '../../asset/images/sample/preview.svg'
 import sampleUpNext from '../../asset/images/sample/upnext.svg'
 import sampleCalendar from '../../asset/images/sample/calendar.svg'
 import sampleInfos from '../../asset/images/sample/infos.svg'
 
+import preview_bg from '../../asset/images/sample/preview_bg.png'
+import axios from "axios";
+
 
 const MainLayOut = () => {
-
     const ImageTile = ({ style, children }: { style?:CSSProperties, children?: any }) => {
         const imageCSS = {
             backgroundPosition: 'center',
@@ -27,6 +29,32 @@ const MainLayOut = () => {
         );
     };
 
+    const [weather, setWeather] = useState<any>({})
+    const WEATHER_APP_KEY = '9956f957223b8ef2a21d8b11622e63f5'
+
+    const getWeather = async(lat:string|number, lon: string|number) => {
+        try {
+            const res = await axios.get(
+              `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_APP_KEY}&units=metric&`
+            );
+            const weatherIcon = res.data.weather[0].icon;
+            const weatherIconAdrs = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+            setWeather( {...res.data.main, icon: weatherIconAdrs})
+        } catch (err){
+            console.log(err);
+        }
+    };
+
+    React.useEffect(() => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+            getWeather(lat, lon).then();
+        });
+    }, []);
+
+    console.log(weather)
+
     return (
         <div style={{width:'100vw', height:'100vh',
             display: 'grid', gap:'1.5vw', padding:'1.5vw', boxSizing:'border-box',
@@ -37,7 +65,10 @@ const MainLayOut = () => {
             {/*    <div style={{fontSize:'2.5vw', fontWeight:700, color:'#A4D8FF'}}>{'카드뉴스로 보는'}</div>*/}
             {/*    <div style={{fontSize:'3vw', fontWeight:700, color:'#fff', whiteSpace:'pre-line'}}>{'안전보건 관리체계 \n 7가지 핵심요소'}</div>*/}
             {/*</ImageTile>*/}
-            <img src={samplePreview} style={{width:'100%', height:'100%'}} alt=""/>
+            <div style={{width:'100%', height:'100%', borderRadius:'8px',
+                backgroundSize:'cover', backgroundRepeat:'no-repeat', backgroundPosition:'center', backgroundImage:`url('${preview_bg}')`}}>
+            </div>
+            {/*<img src={samplePreview} style={{width:'100%', height:'100%'}} alt=""/>*/}
             <img src={sampleUpNext} style={{width:'100%'}} alt=""/>
             <img src={sampleCalendar} style={{width:'100%'}} alt=""/>
             <div style={{width:'100%', display:'flex', flexDirection:'column', justifyContent:'flex-start'}}>
