@@ -10,6 +10,7 @@ import {Current_Month_Layer_Title} from "../../common/dataSet";
 import {useNavigate} from "react-router-dom";
 import CardMenuList from "../menu/CardMenuList";
 import styled from "styled-components";
+import InlineCalendar from "../calendar/InlineCalendar";
 
 const MainLayOut = () => {
 
@@ -69,7 +70,7 @@ const MainLayOut = () => {
     };
 
     const navigate = useNavigate()
-    const sectionNumber = window.localStorage.getItem('sectionNumber')
+    const sectionNumber = window.sessionStorage.getItem('sectionNumber')
 
     // const sectionArray = Array(24).fill(0).map((v,i)=>(v+i))
     // console.log(sectionArray)
@@ -81,7 +82,7 @@ const MainLayOut = () => {
     // console.log(shuffleArray(Current_Month_Layer_Title))
 
     if(!sectionNumber){
-        window.localStorage.setItem('sectionNumber', '0')
+        window.sessionStorage.setItem('sectionNumber', '0')
     }
 
     useEffect(() => {
@@ -129,9 +130,10 @@ const MainLayOut = () => {
             <CalendarCard>
                 <div style={{fontSize:'6.25vw', fontWeight:500, color:'#fff', maxWidth:'16.66vw',  zIndex:5, position:'relative',
                     boxSizing:'border-box', textAlign:'right', marginRight:'1.2vw'}}>{realTime.format('YYYY\nM월\nDD일')}</div>
-                <div style={{backgroundColor:'#000e55', width:'22.29vw', height:'22.29vw', borderRadius:'1.5625vw', color:'#fff', zIndex:5, position:'relative'}}>
-                    <div style={{display:'flex',justifyContent:'center', alignItems:'center', backgroundRepeat:'no-repeat', width:'100%', height:'100%',
-                        backgroundPosition:'center', backgroundImage:`url('${calendar_frame}')`}} />
+                <div style={{backgroundColor:'#000e55', width:'22.29vw', height:'22.29vw', borderRadius:'1.5625vw', color:'#fff', zIndex:5, position:'relative', display:'flex', justifyContent:'center', alignItems:'center'}}>
+                    {/*<div style={{display:'flex',justifyContent:'center', alignItems:'center', backgroundRepeat:'no-repeat', width:'100%', height:'100%',*/}
+                    {/*    backgroundPosition:'center', backgroundImage:`url('${calendar_frame}')`}} />*/}
+                    <InlineCalendar/>
                 </div>
             </CalendarCard>
 

@@ -86,7 +86,7 @@ const DisasterFiveThings = () => {
 
     const navigate = useNavigate()
     const {pathname} = useLocation()
-    window.localStorage.setItem('sectionNumber', (Number(pathname[pathname.length-1])+1).toString())
+    window.sessionStorage.setItem('sectionNumber', (Number(pathname[pathname.length-1])+1).toString())
     useEffect(()=>{
         if(currentIndex === imageArray.length - 1){
             setTimeout(()=>{

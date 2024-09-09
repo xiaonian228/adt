@@ -32,7 +32,7 @@ const ForeignFalling = () => {
     ]
 
     const navigate = useNavigate()
-    window.localStorage.setItem('sectionNumber', '0')
+    window.sessionStorage.setItem('sectionNumber', '0')
     useEffect(()=>{
         if(currentIndex === imageArray.length - 1){
             setTimeout(()=>{
