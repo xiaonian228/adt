@@ -11,31 +11,42 @@ import ForeignWorkers from "../component/imageContainer/ForeignWorkers";
 import WorkTools from "../component/imageContainer/WorkTools";
 
 import MainLayOut from "../component/layout/MainLayOut";
-
-import SafetyAccidentCases from "../component/sectionContainer/SafetyAccidentCases";
-import InspectionOfPress from "../component/sectionContainer/InspectionOfPress";
-import LawsOnPress from "../component/sectionContainer/LawsOnPress";
-import LearnMajorDisaster from "../component/sectionContainer/LearnMajorDisaster";
-import HeatIllness from "../component/sectionContainer/HeatIllness";
-import IssueContent from "../component/sectionContainer/IssueContent";
-import ForeignGroup from "../component/sectionContainer/ForeignGroup";
-import SafetyPicture from "../component/sectionContainer/SafetyPicture";
-import SafePlaceExample from "../component/sectionContainer/SafePlaceExample";
-import SafeForkLift from "../component/sectionContainer/SafeForkLift";
-import ArticleThirtyFive from "../component/sectionContainer/ArticleThirtyFive";
+import ForkliftCollision from "../component/sectionContainer/ForkliftCollision";
 import PunishmentQnA from "../component/sectionContainer/PunishmentQnA";
-import Corona19 from "../component/sectionContainer/Corona19";
-import ConfinedSpace from "../component/sectionContainer/ConfinedSpace";
-import ForeignExplosive from "../component/sectionContainer/ForeignExplosive";
-import StuckPicture from "../component/sectionContainer/StuckPicture";
-import PreventingElectricShock from "../component/sectionContainer/PreventingElectricShock";
-import DisasterFiveThings from "../component/sectionContainer/DisasterFiveThings";
-import SafeLadder from "../component/sectionContainer/SafeLadder";
-import PressSafetyAccident from "../component/sectionContainer/PressSafetyAccident";
-import SafetyCertification from "../component/sectionContainer/SafetyCertification";
-import PunishmentPromotion from "../component/sectionContainer/PunishmentPromotion";
-import WorkSafetyQuiz from "../component/sectionContainer/WorkSafetyQuiz";
-import ForeignFalling from "../component/sectionContainer/ForeignFalling";
+import BeforeStretching from "../component/sectionContainer/BeforeStretching";
+import SafetySign from "../component/sectionContainer/SafetySign";
+import LessThan50 from "../component/sectionContainer/LessThan50";
+import NoAllowed from "../component/sectionContainer/NoAllowed";
+import NoiseWork from "../component/sectionContainer/NoiseWork";
+import ForkliftPicture from "../component/sectionContainer/ForkliftPicture";
+import RiskAssessment from "../component/sectionContainer/RiskAssessment";
+import PunishmentAnswer from "../component/sectionContainer/PunishmentAnswer";
+import ActionGuideLines from "../component/sectionContainer/ActionGuideLines";
+import IndustrialAccident from "../component/sectionContainer/IndustrialAccident";
+import WorkPlacePicture from "../component/sectionContainer/WorkPlacePicture";
+import ConveyorBelt from "../component/sectionContainer/ConveyorBelt";
+import Nofire from "../component/sectionContainer/Nofire";
+import DisasterForklift from "../component/sectionContainer/DisasterForklift";
+import SafetyQuiz from "../component/sectionContainer/SafetyQuiz";
+import FinancialAssistance from "../component/sectionContainer/FinancialAssistance";
+import RotationalRolling from "../component/sectionContainer/RotationalRolling";
+import CarCrash from "../component/sectionContainer/CarCrash";
+import StructureGuidelines from "../component/sectionContainer/StructureGuidelines";
+import BeforeCheck from "../component/sectionContainer/BeforeCheck";
+import EntrapmentAccident from "../component/sectionContainer/EntrapmentAccident";
+import WorkplaceMovement from "../component/sectionContainer/WorkplaceMovement";
+import CollapsingCargo from "../component/sectionContainer/CollapsingCargo";
+import ThreePrinciples from "../component/sectionContainer/ThreePrinciples";
+import ChemicalLeak from "../component/sectionContainer/ChemicalLeak";
+import SafeWorkplace from "../component/sectionContainer/SafeWorkplace";
+import FireSafety from "../component/sectionContainer/FireSafety";
+import CoverageAccident from "../component/sectionContainer/CoverageAccident";
+import PunishmentQuiz from "../component/sectionContainer/PunishmentQuiz";
+import FatalAccidents from "../component/sectionContainer/FatalAccidents";
+import LOTO from "../component/sectionContainer/LOTO";
+import ProtectiveMeasures from "../component/sectionContainer/ProtectiveMeasures";
+import FireHazard from "../component/sectionContainer/FireHazard";
+import SafeWorkplace2 from "../component/sectionContainer/SafeWorkplace2";
 
 const Router = () => {
 	const location = useLocation()
@@ -59,39 +70,49 @@ const Router = () => {
 				<Route element={<Navigate replace to={'/main'}/>} path={'/'}/>
 				<Route element={<Navigate replace to={'/main'}/>} path={'/*'}/>
 
-				<Route element={<SafetyAccidentCases/>} path={'/section0'}/>
-				<Route element={<InspectionOfPress/>} path={'/section1'}/>
-				<Route element={<LawsOnPress/>} path={'/section2'}/>
-				<Route element={<LearnMajorDisaster/>} path={'/section3'}/>
-				<Route element={<HeatIllness/>} path={'/section4'}/>
-
-				<Route element={<IssueContent/>} path={'/section5'}/>
-				<Route element={<ForeignGroup/>} path={'/section6'}/>
-				<Route element={<SafetyPicture/>} path={'/section7'}/>
-				<Route element={<SafePlaceExample/>} path={'/section8'}/>
-				<Route element={<SafeForkLift/>} path={'/section9'}/>
-
-				<Route element={<ArticleThirtyFive/>} path={'/section10'}/>
-				<Route element={<PunishmentQnA/>} path={'/section11'}/>
-				<Route element={<Corona19/>} path={'/section12'}/>
-				<Route element={<ConfinedSpace/>} path={'/section13'}/>
-				<Route element={<ForeignExplosive/>} path={'/section14'}/>
-
-				<Route element={<StuckPicture/>} path={'/section15'}/>
-				<Route element={<PreventingElectricShock/>} path={'/section16'}/>
-				<Route element={<DisasterFiveThings/>} path={'/section17'}/>
-				<Route element={<SafeLadder/>} path={'/section18'}/>
-				<Route element={<PressSafetyAccident/>} path={'/section19'}/>
-
-				<Route element={<SafetyCertification/>} path={'/section20'}/>
-				<Route element={<PunishmentPromotion/>} path={'/section21'}/>
-				<Route element={<WorkSafetyQuiz/>} path={'/section22'}/>
-				<Route element={<ForeignFalling/>} path={'/section23'}/>
 
 
 
 
+				<Route element={<PunishmentQnA/>} path={'/section0'}/>
+				<Route element={<BeforeStretching/>} path={'/section1'}/>
+				<Route element={<SafetySign/>} path={'/section2'}/>
+				<Route element={<LessThan50/>} path={'/section3'}/>
+				<Route element={<ForkliftCollision/>} path={'/section4'}/>
+				<Route element={<NoAllowed/>} path={'/section5'}/>
+				<Route element={<NoiseWork/>} path={'/section6'}/>
+				<Route element={<ForkliftPicture/>} path={'/section7'}/>
+				<Route element={<RiskAssessment/>} path={'/section8'}/>
+				<Route element={<PunishmentAnswer/>} path={'/section9'}/>
 
+				<Route element={<ActionGuideLines/>} path={'/section10'}/>
+				<Route element={<IndustrialAccident/>} path={'/section11'}/>
+				<Route element={<WorkPlacePicture/>} path={'/section12'}/>
+				<Route element={<ConveyorBelt/>} path={'/section13'}/>
+				<Route element={<Nofire/>} path={'/section14'}/>
+				<Route element={<DisasterForklift/>} path={'/section15'}/>
+				<Route element={<SafetyQuiz/>} path={'/section16'}/>
+				<Route element={<FinancialAssistance/>} path={'/section17'}/>
+				<Route element={<RotationalRolling/>} path={'/section18'}/>
+				<Route element={<CarCrash/>} path={'/section19'}/>
+
+				<Route element={<StructureGuidelines/>} path={'/section20'}/>
+				<Route element={<BeforeCheck/>} path={'/section21'}/>
+				<Route element={<EntrapmentAccident/>} path={'/section22'}/>
+				<Route element={<WorkplaceMovement/>} path={'/section23'}/>
+				<Route element={<CollapsingCargo/>} path={'/section24'}/>
+				<Route element={<ThreePrinciples/>} path={'/section25'}/>
+				<Route element={<ChemicalLeak/>} path={'/section26'}/>
+				<Route element={<SafeWorkplace/>} path={'/section27'}/>
+				<Route element={<FireSafety/>} path={'/section28'}/>
+				<Route element={<CoverageAccident/>} path={'/section29'}/>
+
+				<Route element={<PunishmentQuiz/>} path={'/section30'}/>
+				<Route element={<FatalAccidents/>} path={'/section31'}/>
+				<Route element={<LOTO/>} path={'/section32'}/>
+				<Route element={<ProtectiveMeasures/>} path={'/section33'}/>
+				<Route element={<FireHazard/>} path={'/section34'}/>
+				<Route element={<SafeWorkplace2/>} path={'/section35'}/>
 
 				{/*<Route element={<SafetyEducation/>} path={'/safe/horizon'}/>*/}
 				{/*<Route element={<SafetyEducation vertical/>} path={'/safe/vertical'}/>*/}

@@ -12,8 +12,45 @@ import CardMenuList from "../menu/CardMenuList";
 import styled from "styled-components";
 import InlineCalendar from "../calendar/InlineCalendar";
 
-const MainLayOut = () => {
+import brokenClouds from '../../asset/icons/weather/brokenclouds.png'
 
+import clearNight from '../../asset/icons/weather/clear_night.png'
+import clearDay from '../../asset/icons/weather/clear_day.png'
+
+import fewcloudsNight from '../../asset/icons/weather/fewclouds_night.png'
+import fewcloudsDay from '../../asset/icons/weather/fewclouds_day.png'
+
+import mist from '../../asset/icons/weather/mist.png'
+
+import rainNight from '../../asset/icons/weather/rain_night.png'
+import rainDay from '../../asset/icons/weather/rain_day.png'
+import snow from '../../asset/icons/weather/snow.png'
+import shawerRain from '../../asset/icons/weather/showerrain.png'
+import thunderStorm from '../../asset/icons/weather/thunderstorm.png'
+import scatteredClouds from '../../asset/icons/weather/scatteredclouds.png'
+
+
+const MainLayOut = () => {
+    const weatherIcons = [
+        {key:'01d', img: clearDay},
+        {key:'01n', img: clearNight},
+        {key:'02d', img: fewcloudsDay},
+        {key:'02n', img: fewcloudsNight},
+        {key:'03d', img: scatteredClouds},
+        {key:'03n', img: scatteredClouds},
+        {key:'04d', img: brokenClouds},
+        {key:'04n', img: brokenClouds},
+        {key:'09d', img: shawerRain},
+        {key:'09n', img: shawerRain},
+        {key:'10d', img: rainDay},
+        {key:'10n', img: rainNight},
+        {key:'11d', img: thunderStorm},
+        {key:'11n', img: thunderStorm},
+        {key:'13d', img: snow},
+        {key:'13n', img: snow},
+        {key:'50d', img: mist},
+        {key:'50n', img: mist},
+    ]
     // const ImageTile = ({ style, children }: { style?:CSSProperties, children?: any }) => {
     //     const imageCSS = {
     //         backgroundPosition: 'center',
@@ -41,9 +78,11 @@ const MainLayOut = () => {
             const res = await axios.get(
               `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_APP_KEY}&units=metric&`
             );
+            console.log(res)
             const weatherIcon = res.data.weather[0].icon;
-            const weatherIconAdrs = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
-            setWeather( {...res.data.main, icon: weatherIconAdrs})
+            console.log(weatherIcon)
+            // const weatherIconAdrs = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
+            setWeather( {...res.data.main, icon: weatherIcons.find((v)=>v.key === weatherIcon)?.img})
         } catch (err){
             console.log(err);
         }
@@ -88,7 +127,7 @@ const MainLayOut = () => {
     useEffect(() => {
         const timeoutId = setTimeout(() => {
             navigate(`/section${sectionNumber}`);
-        }, 8000);
+        }, 10000);
         return () => clearTimeout(timeoutId); // Clear timeout on component unmount
     }, [navigate]);
 
