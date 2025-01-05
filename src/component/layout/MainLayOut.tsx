@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import logo from '../../asset/images/sample/zestech_logo.svg'
-import calendar_frame from '../../asset/images/sample/Rectangle.png'
 import preview_bg from '../../asset/images/sample/preview_bg.png'
 import time_bg from '../../asset/images/sample/time_bg.png'
 import weather_bg from '../../asset/images/sample/weather_bg.png'
@@ -13,15 +12,11 @@ import styled from "styled-components";
 import InlineCalendar from "../calendar/InlineCalendar";
 
 import brokenClouds from '../../asset/icons/weather/brokenclouds.png'
-
 import clearNight from '../../asset/icons/weather/clear_night.png'
 import clearDay from '../../asset/icons/weather/clear_day.png'
-
 import fewcloudsNight from '../../asset/icons/weather/fewclouds_night.png'
 import fewcloudsDay from '../../asset/icons/weather/fewclouds_day.png'
-
 import mist from '../../asset/icons/weather/mist.png'
-
 import rainNight from '../../asset/icons/weather/rain_night.png'
 import rainDay from '../../asset/icons/weather/rain_day.png'
 import snow from '../../asset/icons/weather/snow.png'
@@ -51,6 +46,7 @@ const MainLayOut = () => {
         {key:'50d', img: mist},
         {key:'50n', img: mist},
     ]
+
     // const ImageTile = ({ style, children }: { style?:CSSProperties, children?: any }) => {
     //     const imageCSS = {
     //         backgroundPosition: 'center',
@@ -78,9 +74,7 @@ const MainLayOut = () => {
             const res = await axios.get(
               `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${WEATHER_APP_KEY}&units=metric&`
             );
-            console.log(res)
             const weatherIcon = res.data.weather[0].icon;
-            console.log(weatherIcon)
             // const weatherIconAdrs = `http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;
             setWeather( {...res.data.main, icon: weatherIcons.find((v)=>v.key === weatherIcon)?.img})
         } catch (err){
@@ -112,21 +106,18 @@ const MainLayOut = () => {
     const sectionNumber = window.sessionStorage.getItem('sectionNumber')
 
     // const sectionArray = Array(24).fill(0).map((v,i)=>(v+i))
-    // console.log(sectionArray)
 
     // const shuffleArray = (arr: any[]): any[] => {
     //     return arr.sort(() => Math.random() - 0.5); // 무작위 정렬
     // }
-    //
-    // console.log(shuffleArray(Current_Month_Layer_Title))
 
-    if(!sectionNumber){
+    if(!sectionNumber || Current_Month_Layer_Title[Number(sectionNumber)-1]?.key === '018'){
         window.sessionStorage.setItem('sectionNumber', '0')
     }
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
-            navigate(`/section${sectionNumber}`);
+            navigate(`/section_${sectionNumber}`);
         }, 10000);
         return () => clearTimeout(timeoutId); // Clear timeout on component unmount
     }, [navigate]);
@@ -150,7 +141,7 @@ const MainLayOut = () => {
                 backgroundSize:'103.5%', backgroundRepeat:'no-repeat', backgroundPosition:'center', backgroundImage:`url('${preview_bg}')`}}>
                 <div style={{fontSize:'2.5vw', fontWeight:700, color:'#A4D8FF', marginBottom:'0.8vw'}}>{'카드뉴스로 보는'}</div>
                 {/*<div style={{fontSize:'3.5vw', fontWeight:700, lineHeight:'3.5vw', color:'#fff', whiteSpace:'pre-line'}}>{'안전보건 관리체계 \n 7가지 핵심요소'}</div>*/}
-                <div style={{fontSize:'3.5vw', fontWeight:700, lineHeight:'3.5vw', color:'#fff', whiteSpace:'pre-line'}}>{Current_Month_Layer_Title[Number(sectionNumber)].title}</div>
+                <div style={{fontSize:'3.5vw', fontWeight:700, lineHeight:'3.5vw', color:'#fff', whiteSpace:'pre-line'}}>{Current_Month_Layer_Title[Number(sectionNumber)]?.title}</div>
             </div>
 
             <SectionListCard>

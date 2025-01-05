@@ -1,9 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
-import SelectMenu from "./SelectMenu";
 
 const CardMenuList = ({ title }:{title:string}) => {
     const textRef = useRef<HTMLDivElement | null>(null);
-    const [fontSize, setFontSize] = useState<string>('2.8125vw');
+    const [fontSize, setFontSize] = useState<string>('2.3125vw');
 
     useEffect(() => {
         const adjustFontSize = () => {
@@ -11,11 +10,16 @@ const CardMenuList = ({ title }:{title:string}) => {
             if (element) {
                 const containerWidth = element.clientWidth;
                 const textWidth = element.scrollWidth;
-
                 // If textWidth is greater than containerWidth, reduce fontSize
+                const rate = (containerWidth - textWidth) * 0.003
+                // const rate = (containerWidth - textWidth) * 0.0015
+                console.log(title, rate)
+                console.log(title, containerWidth, textWidth)
+                console.log(title, textRef.current?.offsetWidth)
+                console.log(title, textRef.current?.scrollWidth)
                 if (textWidth > containerWidth) {
                     setFontSize((prevSize) => {
-                        let newSize = parseFloat(prevSize) - 0.15; // Reduce fontSize by 0.1vw
+                        let newSize = parseFloat(prevSize) + rate; // Reduce fontSize by 0.1vw
                         if (newSize < 1) newSize = 1; // Set a minimum fontSize
                         return `${newSize}vw`;
                     });
@@ -35,12 +39,12 @@ const CardMenuList = ({ title }:{title:string}) => {
                 resizeObserver.unobserve(textRef.current);
             }
         };
-    }, [title]);
+    }, [title, textRef]);
     return (
         <div
             ref={textRef}
             style={{
-                transition:'fontSize 0.2s',
+                // transition:'fontSize 0.2s',
                 width: 'auto',
                 height: '3.75vw',
                 fontSize: fontSize,
@@ -55,7 +59,7 @@ const CardMenuList = ({ title }:{title:string}) => {
                 whiteSpace: 'nowrap', // Prevent text from wrapping
             }}
         >
-            {title}
+                {title}
         </div>
     );
 };
