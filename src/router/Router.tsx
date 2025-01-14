@@ -18,10 +18,12 @@ const Router = () => {
 					<Route key={i}
 						   element={
 						<SectionLayout imageArray={v.images}
-									   timerControl={v.timer}
-									   video={v.video}/>
-					}
-						   path={`/section_${i}`}/>
+						               timerControl={v.timer}
+						               video={v.video}
+						               moveType={v.imageMoveType?.type}
+						               vertical={v.imageMoveType?.vertical}
+						/>
+					} path={`/section_${i}`}/>
 					))
 				}
 			</Routes>

@@ -13,10 +13,10 @@ const CardMenuList = ({ title }:{title:string}) => {
                 // If textWidth is greater than containerWidth, reduce fontSize
                 const rate = (containerWidth - textWidth) * 0.003
                 // const rate = (containerWidth - textWidth) * 0.0015
-                console.log(title, rate)
-                console.log(title, containerWidth, textWidth)
-                console.log(title, textRef.current?.offsetWidth)
-                console.log(title, textRef.current?.scrollWidth)
+                // console.log(title, rate)
+                // console.log(title, containerWidth, textWidth)
+                // console.log(title, textRef.current?.offsetWidth)
+                // console.log(title, textRef.current?.scrollWidth)
                 if (textWidth > containerWidth) {
                     setFontSize((prevSize) => {
                         let newSize = parseFloat(prevSize) + rate; // Reduce fontSize by 0.1vw
