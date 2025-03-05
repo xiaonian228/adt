@@ -111,7 +111,7 @@ const MainLayOut = () => {
     //     return arr.sort(() => Math.random() - 0.5); // 무작위 정렬
     // }
 
-    if(!sectionNumber || Current_Month_Layer_Title[Number(sectionNumber)-1]?.key === '036'){
+    if(!sectionNumber || Current_Month_Layer_Title[Number(sectionNumber)-1]?.key === '012'){
         window.sessionStorage.setItem('sectionNumber', '0')
     }
 
